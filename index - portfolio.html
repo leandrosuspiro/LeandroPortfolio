@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leandro Bezerra — Product Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --surface2:  #1c2333;
+    --border:    #30363d;
+    --text:      #e6edf3;
+    --muted:     #8b949e;
+    --accent:    #58a6ff;
+    --accent-lt: rgba(88,166,255,0.12);
+    --green:     #3fb950;
+    --green-lt:  rgba(63,185,80,0.12);
+    --amber:     #d29922;
+    --amber-lt:  rgba(210,153,34,0.12);
+    --mono: 'DM Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+    gap: 80px;
+  }
+
+  /* ── LEFT PANEL ── */
+  .panel {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+  }
+
+  .panel-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .panel h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .panel-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .panel-role {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .panel-bio {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 260px;
+    margin-bottom: 40px;
+  }
+
+  .panel-nav {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 48px;
+  }
+
+  .panel-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 0;
+    transition: color 0.2s;
+    group: true;
+  }
+
+  .panel-nav a:hover,
+  .panel-nav a.active {
+    color: var(--text);
+  }
+
+  .nav-line {
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.2s;
+    flex-shrink: 0;
+  }
+
+  .panel-nav a:hover .nav-line,
+  .panel-nav a.active .nav-line {
+    width: 48px;
+  }
+
+  .panel-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: var(--mono);
+  }
+  .contact-link:hover { color: var(--accent); }
+
+  /* ── RIGHT CONTENT ── */
+  .content {
+    flex: 1;
+    padding: 80px 0 120px;
+    min-width: 0;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .section-heading {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 40px;
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    align-items: start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    position: relative;
+  }
+
+  .project-card:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .project-card:hover .card-arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-body { min-width: 0; }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+
+  .card-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .card-arrow {
+    font-size: 16px;
+    color: var(--muted);
+    transition: transform 0.2s, color 0.2s;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+  }
+  .tag-blue   { background: var(--accent-lt); color: var(--accent); }
+  .tag-grey  { background: var(--green-lt);  color: var(--green); }
+  .tag-grey  { background: var(--amber-lt);  color: var(--amber); }
+  .tag-grey   { background: rgba(139,148,158,0.12); color: var(--muted); }
+
+  .card-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: rgba(88,166,255,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(88,166,255,0.3);
+  }
+
+  /* ── METHODOLOGY ── */
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .method-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .method-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .method-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .method-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+  }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 780px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modal-in 0.2s ease;
+  }
+
+  @keyframes modal-in {
+    from { opacity: 0; transform: scale(0.97) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+  }
+  .modal-topbar-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .modal-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+  }
+  .modal-close:hover { color: var(--text); background: var(--border); }
+
+  .modal-screenshot {
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    min-height: 200px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .modal-screenshot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 420px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* Placeholder when no screenshot yet */
+  .screenshot-placeholder {
+    width: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    background: var(--surface2);
+  }
+  .screenshot-placeholder .ph-icon { font-size: 32px; }
+
+  .modal-body {
+    padding: 28px 32px 32px;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .modal-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .modal-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .modal-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .modal-block h4 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-family: var(--mono);
+  }
+
+  .modal-block p {
+    font-size: 13px;
+    color: #c9d1d9;
+    line-height: 1.65;
+  }
+
+  .modal-outcomes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .outcome-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-lt);
+    border: 1px solid rgba(63,185,80,0.3);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .lifecycle-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .lc-step {
+    background: var(--surface2);
+    padding: 12px 14px;
+  }
+
+  .lc-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .lc-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .lc-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── APP MOCKUP (Stock) ── */
+  .app-mockup {
+    width: 100%;
+    background: #1a1a1a;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .mockup-chrome {
+    background: #2a2a2a;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #3a3a3a;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+  .mockup-url {
+    flex: 1;
+    text-align: center;
+    font-size: 10px;
+    color: #555;
+    font-family: monospace;
+  }
+  .mockup-app-hdr {
+    background: #1c1c1c;
+    border-bottom: 1px solid #2e2e2e;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mockup-app-hdr .app-name { font-size: 13px; font-weight: 700; color: #fff; }
+  .mockup-app-hdr .app-user { font-size: 12px; color: #666; }
+  .mockup-app-hdr .hdr-btns { display: flex; gap: 6px; }
+  .hdr-btn { background: #2a2a2a; border: 1px solid #3a3a3a; color: #aaa; font-size: 10px; padding: 4px 10px; border-radius: 5px; }
+  .mockup-body { background: #f0f0f0; padding: 14px 18px; }
+  .filter-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .ftab { background: #fff; border: 1px solid #ddd; color: #555; font-size: 10px; padding: 4px 12px; border-radius: 20px; }
+  .ftab.active { background: #1c1c1c; color: #fff; border-color: #1c1c1c; }
+  .m-search { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 6px 12px; font-size: 11px; color: #bbb; margin-bottom: 8px; }
+  .m-alert { background: #fff8ec; border: 1px solid #f5d89a; border-radius: 6px; padding: 8px 12px; font-size: 11px; color: #b35a00; margin-bottom: 10px; }
+  .mat-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #999; text-transform: uppercase; margin: 8px 0 6px; }
+  .mat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .mat-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 7px; padding: 10px 12px; }
+  .mat-name { font-size: 11px; font-weight: 700; color: #111; margin-bottom: 1px; }
+  .mat-sub { font-size: 10px; color: #999; }
+  .mat-bar { height: 2px; background: #22c55e; border-radius: 2px; margin: 5px 0; }
+  .mat-count { font-size: 11px; color: #333; }
+  .mat-cut { font-size: 10px; color: #2563eb; margin-top: 2px; }
+
+  /* ── SCROLL FADE IN ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; padding: 0 24px; gap: 0; }
+    .panel { position: static; height: auto; width: 100%; padding: 48px 0 32px; }
+    .panel h1 { font-size: 28px; }
+    .panel-nav { display: none; }
+    .content { padding: 32px 0 80px; }
+    .modal-grid, .lifecycle-row { grid-template-columns: 1fr; }
+    .method-grid { grid-template-columns: 1fr; }
+    .modal-body { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- LEFT PANEL -->
+  <aside class="panel">
+    <div class="panel-eyebrow">Product Portfolio</div>
+    <h1>Leandro<br>Bezerra</h1>
+    <div class="panel-role">Project Manager</div>
+    <p class="panel-bio">
+      I identify problems, define solutions, and ship tools that real teams
+      depend on — going through the full PM lifecycle from user research to live deployment.
+    </p>
+    <ul class="panel-nav">
+      <li>
+        <a href="#projects" class="active" onclick="setActive(this)">
+          <span class="nav-line"></span> Projects
+        </a>
+      </li>
+      <li>
+        <a href="#approach" onclick="setActive(this)">
+          <span class="nav-line"></span> Approach
+        </a>
+      </li>
+    </ul>
+    <div class="panel-contact">
+      <a class="contact-link" href="mailto:leandrosilvabezerra@gmail.com">
+        <span>✉</span> leandrosilvabezerra@gmail.com
+      </a>
+    </div>
+  </aside>
+
+  <!-- RIGHT CONTENT -->
+  <main class="content">
+
+    <!-- PROJECTS -->
+    <section id="projects" style="margin-bottom: 72px;">
+      <div class="section-label">Work</div>
+      <div class="section-heading">Products I've shipped</div>
+
+      <div class="projects">
+
+        <!-- Stock Management -->
+        <div class="project-card fade-up" onclick="openModal('stock')" style="cursor:pointer;">
+          <div class="card-icon" style="background:rgba(88,166,255,0.1);">📦</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-name">Stock Management System</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <p class="card-desc">
+              Multi-user web app replacing a fragmented spreadsheet process for real-time inventory
+              control on the production floor. Full PM lifecycle: discovery, journey mapping,
+              concept testing, and iterative delivery.
+            </p>
+            <div class="card-tags">
+<span class="tag tag-grey">Multi-user</span>
+              <span class="tag tag-grey">Python · Flask · SQLite</span>
+              <span class="tag tag-grey">Excel export</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nesting Tool -->
+        <div class="project-card fade-up" onclick="openModal('nesting')" style="cursor:pointer;">
+          <div class="card-icon" style="background:rgba(63,185,80,0.1);">🪚</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-name">Sheet Nesting & Cut List Generator</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <p class="card-desc">
+              Two linked tools that eliminate manual sheet-cutting calculations — optimising part
+              placement to reduce material waste and prep time. Went through 20+ iterations driven
+              by user feedback.
+            </p>
+            <div class="card-tags">
+              <span class="tag tag-grey">Material optimisation</span>
+              <span class="tag tag-grey">PDF · Excel export</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Tracker -->
+        <div class="project-card fade-up" onclick="openModal('tracker')" style="cursor:pointer;">
+          <div class="card-icon" style="background:rgba(210,153,34,0.1);">📊</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-name">Project Tracker — Gantt Generator</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <p class="card-desc">
+              Turns a structured spreadsheet into a full interactive Gantt chart with task
+              dependencies, employee allocation, and delivery dates — in one click, with no
+              specialist software required.
+            </p>
+            <div class="card-tags">
+              <span class="tag tag-grey">Gantt chart</span>
+              <span class="tag tag-grey">Dependency mapping</span>
+              <span class="tag tag-grey">Zero install</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suppliers Database -->
+        <div class="project-card fade-up" onclick="openModal('suppliers')" style="cursor:pointer;">
+          <div class="card-icon" style="background:rgba(139,148,158,0.1);">🗂️</div>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="card-name">Supplier Directory</span>
+              <span class="card-arrow">↗</span>
+            </div>
+            <p class="card-desc">
+              Searchable supplier database with tag-based filtering and admin access control,
+              replacing scattered individual contacts and personal notes with a single shared
+              source of truth.
+            </p>
+            <div class="card-tags">
+              <span class="tag tag-grey">Tag filtering</span>
+              <span class="tag tag-grey">Access control</span>
+              <span class="tag tag-grey">Zero dependency</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- APPROACH -->
+    <section id="approach" class="fade-up">
+      <div class="section-label">How I work</div>
+      <div class="section-heading">Product-first, AI-assisted</div>
+
+      <div class="method-grid">
+        <div class="method-item">
+          <div class="method-num">01</div>
+          <div class="method-title">Problem before solution</div>
+          <p class="method-desc">Every project started with a defined problem, validated through conversations with the people actually doing the work.</p>
+        </div>
+        <div class="method-item">
+          <div class="method-num">02</div>
+          <div class="method-title">AI as a build tool</div>
+          <p class="method-desc">I don't write code by hand — I use AI to ship. That keeps my focus on product decisions, not implementation details.</p>
+        </div>
+        <div class="method-item">
+          <div class="method-num">03</div>
+          <div class="method-title">Ship, learn, improve</div>
+          <p class="method-desc">None of these tools launched fully formed. I treated every release as a hypothesis and let real usage drive what to fix next.</p>
+        </div>
+        <div class="method-item">
+          <div class="method-num">04</div>
+          <div class="method-title">Zero overhead constraint</div>
+          <p class="method-desc">Every tool had to work inside company infrastructure — no cloud, no install, no IT tickets. Constraint drove better product decisions.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ── MODALS ── -->
+
+<!-- STOCK MANAGEMENT -->
+<div class="modal-overlay" id="modal-stock" onclick="closeOnOverlay(event, 'stock')">
+  <div class="modal">
+    <div class="modal-topbar">
+      <span class="modal-topbar-label">Stock Management System</span>
+      <button class="modal-close" onclick="closeModal('stock')">✕</button>
+    </div>
+
+    <!-- App mockup as screenshot -->
+    <div class="app-mockup">
+      <div class="mockup-chrome">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="mockup-url">localhost · Stock Management</span>
+      </div>
+      <div class="mockup-app-hdr">
+        <div>
+          <span class="app-name">Stock</span>
+          <span class="app-user"> — admin</span>
+        </div>
+        <div class="hdr-btns">
+          <span class="hdr-btn">↳ Review</span>
+          <span class="hdr-btn">⬇ Export</span>
+          <span class="hdr-btn">⚙</span>
+        </div>
+      </div>
+      <div class="mockup-body">
+        <div class="filter-tabs">
+          <div class="ftab">All</div><div class="ftab active">With stock</div>
+          <div class="ftab">Crops</div><div class="ftab">Full sheets</div>
+        </div>
+        <div class="m-search">🔍 Search items with stock...</div>
+        <div class="m-alert">⚠ <strong>1 item needs review</strong> — click to open &nbsp;<span style="color:#ccc;">5052-332</span></div>
+        <div class="mat-label">Stainless Steel</div>
+        <div class="mat-grid">
+          <div class="mat-card"><div class="mat-name">SS304 <span class="mat-sub">Stainless 304</span></div><div class="mat-bar"></div><div class="mat-count"><strong>58</strong> crops &nbsp;<strong>3</strong> sheets</div><div class="mat-cut">3 for cut</div></div>
+          <div class="mat-card"><div class="mat-name">SS316 <span class="mat-sub">Stainless 316</span></div><div class="mat-bar"></div><div class="mat-count"><strong>35</strong> crops &nbsp;<strong>1</strong> sheet</div></div>
+        </div>
+        <div class="mat-label">Aluminum</div>
+        <div class="mat-grid">
+          <div class="mat-card"><div class="mat-name">5052 <span class="mat-sub">Aluminum 5052</span></div><div class="mat-bar"></div><div class="mat-count"><strong>41</strong> crops &nbsp;<strong>7</strong> sheets</div><div class="mat-cut">2 for cut</div></div>
+          <div class="mat-card"><div class="mat-name">5086 <span class="mat-sub">Aluminum 5086</span></div><div class="mat-bar"></div><div class="mat-count"><strong>9</strong> crops</div></div>
+          <div class="mat-card"><div class="mat-name">6061 <span class="mat-sub">Aluminum 6061</span></div><div class="mat-bar"></div><div class="mat-count"><strong>14</strong> crops &nbsp;<strong>1</strong> sheet</div><div class="mat-cut">1 for cut</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-icon" style="background:rgba(88,166,255,0.1);">📦</div>
+        <div>
+          <div class="modal-title">Stock Management System</div>
+          <div class="modal-subtitle">Multi-user inventory web app · Python / Flask / SQLite</div>
+        </div>
+      </div>
+
+      <div class="lifecycle-row">
+        <div class="lc-step"><div class="lc-num">01</div><div class="lc-title">Discover</div><div class="lc-desc">User interviews, pain point mapping</div></div>
+        <div class="lc-step"><div class="lc-num">02</div><div class="lc-title">Define</div><div class="lc-desc">Journey mapping, feature prioritisation</div></div>
+        <div class="lc-step"><div class="lc-num">03</div><div class="lc-title">Prototype</div><div class="lc-desc">Concept testing with real users</div></div>
+        <div class="lc-step"><div class="lc-num">04</div><div class="lc-title">Iterate</div><div class="lc-desc">Live feedback → incremental releases</div></div>
+      </div>
+
+      <div class="modal-grid">
+        <div class="modal-block">
+          <h4>Problem</h4>
+          <p>Stock levels lived in individual spreadsheets, causing miscommunication, stockouts, and time lost to manual checking as the team grew.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Solution</h4>
+          <p>A browser-based inventory app with role-based access, persistent database, full activity logging, and one-click Excel export — no installation needed.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Key decision</h4>
+          <p>Chose a web app over a shared spreadsheet to enforce data integrity and support concurrent users. Prioritised audit trail after research surfaced accountability as a top concern.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Scope</h4>
+          <p>Multi-user auth, material category grouping, crop/sheet tracking, review alerts, substitute material flagging, Excel export, activity log.</p>
+        </div>
+      </div>
+
+      <div class="modal-outcomes">
+        <div class="outcome-chip">✓ Eliminated duplicate spreadsheets</div>
+        <div class="outcome-chip">✓ Real-time visibility for the whole team</div>
+        <div class="outcome-chip">✓ Activity log adopted for supervisor oversight</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NESTING TOOL -->
+<div class="modal-overlay" id="modal-nesting" onclick="closeOnOverlay(event, 'nesting')">
+  <div class="modal">
+    <div class="modal-topbar">
+      <span class="modal-topbar-label">Sheet Nesting & Cut List Generator</span>
+      <button class="modal-close" onclick="closeModal('nesting')">✕</button>
+    </div>
+    <div class="modal-screenshot">
+      <div class="screenshot-placeholder">
+        <span class="ph-icon">🪚</span>
+        <span>Screenshot coming soon</span>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-icon" style="background:rgba(63,185,80,0.1);">🪚</div>
+        <div>
+          <div class="modal-title">Sheet Nesting & Cut List Generator</div>
+          <div class="modal-subtitle">Two linked tools for project managers · HTML / JavaScript</div>
+        </div>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-block">
+          <h4>Problem</h4>
+          <p>Project managers had no reliable tool to calculate material requirements and cutting layouts. Without it, quotes were hard to price accurately and excess material was routinely ordered, driving up costs.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Solution</h4>
+          <p>A Cut List Generator that structures part requirements from a template, paired with a Sheet Nesting Tool that visually optimises how parts are laid out on each sheet — giving PMs clear, accurate data for quoting and purchasing decisions.</p>
+        </div>
+        <div class="modal-block">
+          <h4>User & adoption</h4>
+          <p>Built exclusively for project managers. No training needed — the step-by-step flow makes it immediately usable, and the product continues to evolve as PMs share feedback and new needs emerge.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Output</h4>
+          <p>Exports to PDF and Excel, in formats already familiar to the team. Keeps the PM in their existing workflow while eliminating the manual guesswork.</p>
+        </div>
+      </div>
+      <div class="modal-outcomes">
+        <div class="outcome-chip">✓ More accurate material quotes</div>
+        <div class="outcome-chip">✓ Reduced material waste</div>
+        <div class="outcome-chip">✓ No training required</div>
+        <div class="outcome-chip">✓ Continuously evolving with user feedback</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT TRACKER -->
+<div class="modal-overlay" id="modal-tracker" onclick="closeOnOverlay(event, 'tracker')">
+  <div class="modal">
+    <div class="modal-topbar">
+      <span class="modal-topbar-label">Project Tracker — Gantt Generator</span>
+      <button class="modal-close" onclick="closeModal('tracker')">✕</button>
+    </div>
+    <div class="modal-screenshot">
+      <div class="screenshot-placeholder">
+        <span class="ph-icon">📊</span>
+        <span>Screenshot coming soon</span>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-icon" style="background:rgba(210,153,34,0.1);">📊</div>
+        <div>
+          <div class="modal-title">Project Tracker — Gantt Generator</div>
+          <div class="modal-subtitle">Production planning tool · HTML / JavaScript / Excel</div>
+        </div>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-block">
+          <h4>Problem</h4>
+          <p>The company had no Gantt chart tool and no budget to acquire one. Senior project managers — many of whom had never used scheduling software — had no structured way to communicate production timelines, making it difficult for the team to plan and prioritise work.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Solution</h4>
+          <p>A lightweight Gantt generator built around the formats and workflows the team already knew. Project managers fill in a familiar spreadsheet template and the tool produces a clear, visual timeline instantly — no software to learn, no licence to buy.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Key decision</h4>
+          <p>Rather than introducing complex project management software that senior PMs would resist, I designed something simple enough to be picked up immediately — meeting the users where they were, not where I wanted them to be.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Scope</h4>
+          <p>Task and dependency mapping, employee hour allocation, delivery date tracking, visual Gantt output. Runs in the browser with no installation or IT involvement.</p>
+        </div>
+      </div>
+      <div class="modal-outcomes">
+        <div class="outcome-chip">✓ Adopted by senior PMs with no prior tool experience</div>
+        <div class="outcome-chip">✓ Clear production timelines from a familiar spreadsheet</div>
+        <div class="outcome-chip">✓ Zero cost, zero install</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPLIERS -->
+<div class="modal-overlay" id="modal-suppliers" onclick="closeOnOverlay(event, 'suppliers')">
+  <div class="modal">
+    <div class="modal-topbar">
+      <span class="modal-topbar-label">Supplier Directory</span>
+      <button class="modal-close" onclick="closeModal('suppliers')">✕</button>
+    </div>
+    <div class="modal-screenshot">
+      <div class="screenshot-placeholder">
+        <span class="ph-icon">🗂️</span>
+        <span>Screenshot coming soon</span>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-icon" style="background:rgba(139,148,158,0.1);">🗂️</div>
+        <div>
+          <div class="modal-title">Supplier Directory</div>
+          <div class="modal-subtitle">Internal knowledge tool · HTML / JavaScript / JSON</div>
+        </div>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-block">
+          <h4>Problem</h4>
+          <p>Each project manager worked with their own set of vendors, with no visibility into what others were doing. Supplier knowledge — quality track record, how they handle costs, how they deal with issues — existed only in individual heads or scattered inboxes. This fragmented approach made it hard to build consistent vendor relationships and put unnecessary pressure on our purchaser to field the same questions repeatedly.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Solution</h4>
+          <p>A centralised supplier directory where the whole team can search vendors, read notes on how each supplier handles jobs in terms of quality and cost, and find the right contact quickly. Admin-controlled to keep data clean and consistent.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Key decision</h4>
+          <p>The goal wasn't just to store contacts — it was to build institutional knowledge around vendor relationships. Adding structured notes on quality and cost behaviour meant the directory became a decision-support tool, not just an address book. This also reduced the load on our purchaser, who no longer needed to be the sole keeper of that knowledge.</p>
+        </div>
+        <div class="modal-block">
+          <h4>Scope</h4>
+          <p>Full-text search, tag-based filtering by category, supplier profiles with notes on quality and cost, admin access control, add/edit/delete suppliers. Single-file — no server or IT required.</p>
+        </div>
+      </div>
+      <div class="modal-outcomes">
+        <div class="outcome-chip">✓ Consolidated fragmented vendor knowledge</div>
+        <div class="outcome-chip">✓ Stronger, more consistent supplier relationships</div>
+        <div class="outcome-chip">✓ Reduced load on the purchaser</div>
+        <div class="outcome-chip">✓ PMs can make informed vendor choices independently</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Modal open/close
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeOnOverlay(e, id) {
+    if (e.target === e.currentTarget) closeModal(id);
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  // Nav active state
+  function setActive(el) {
+    document.querySelectorAll('.panel-nav a').forEach(a => a.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i * 80) + 'ms';
+    observer.observe(el);
+  });
+
+  // Nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.panel-nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
