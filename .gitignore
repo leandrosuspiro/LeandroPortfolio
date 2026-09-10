@@ -1,3 +1,5 @@
 _cap/
 _toolcap/
+_dev/
+.claude/launch.json
 .DS_Store
